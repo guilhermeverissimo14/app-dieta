@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { Select } from '@/components/input/select';
 import { useDataStore } from '@/store/data';
 import { State } from 'react-native-gesture-handler';
+import { router } from 'expo-router';
 
 const schema = z.object({
     gender: z.string().min(1, { message: 'O sexo é obrigatório' }),
@@ -53,7 +54,7 @@ export default function Create() {
             objective: data.objective
         })
 
-        console.log(data)
+        router.push("/nutrition")
     }
 
     return (
