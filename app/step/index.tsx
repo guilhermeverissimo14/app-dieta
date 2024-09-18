@@ -7,6 +7,8 @@ import { colors } from '@/constants/Colors';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { router } from 'expo-router';
+import { useDataStore } from '@/store/data';
 
 const schema = z.object({
     name: z.string().min(1, { message: 'O nome é obrigatório' }),
@@ -24,12 +26,26 @@ export default function Step() {
         resolver: zodResolver(schema)
     })
 
+    const setPageOne = useDataStore(state => state.setPageOne)
+
+    function handleCreate(data: FormData) {
+
+        setPageOne({
+            name: data.name,
+            weight: data.weight,
+            age: data.age,
+            height: data.height
+        })
+
+        router.push('/create')
+    }
+
 
     return (
         <View style={styles.container}>
 
             <Header
-                step='passo 1'
+                step='Passo 1'
                 title='Vamos começar'
             />
 
@@ -71,8 +87,8 @@ export default function Step() {
                     keyboardType='numeric'
                 />
 
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Avaçar</Text>
+                <TouchableOpacity onPress={handleSubmit(handleCreate)} style={styles.button}>
+                    <Text style={styles.buttonText}>Avançar</Text>
                 </TouchableOpacity>
 
             </ScrollView>
