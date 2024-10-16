@@ -21,7 +21,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function Create() {
 
-    const { control, handleSubmit, formState: { errors, isValid } } = useForm<FormData>({
+    const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema)
     })
 
